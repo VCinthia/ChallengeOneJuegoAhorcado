@@ -1,0 +1,39 @@
+body{
+    background-image: url("https://i.pinimg.com/564x/b7/ff/4c/b7ff4cbb8a55e4c263259e93b3c3e6bc.jpg") ;
+}
+
+#logo{
+    padding: 20px;
+    opacity: 80%;
+    ;
+}
+
+footer{
+    text-align: center;
+    font-size: 15px;
+    margin: 40px;
+}
+
+#canva {
+    font-family: Arial, Helvetica, sans-serif;
+    align-items: center;
+    
+}
+
+/* @media (max-width: 1200px), (max-height: 680px) {
+    #horca {
+        width: 1200px;
+        height: 680px;
+        
+    }
+  } */
+
+/* @media (min-width: 1900px), (min-height: 900px) {
+    #horca {
+      width: 1900px;
+      height: 900px;
+      
+    }
+  }
+
+ */
