@@ -65,7 +65,7 @@ function verificarLetraCliqueada(key){
 function adicionarLetraCorrecta(i){//ver si es i como tenia antes o index
     palabraCorrecta += palabraSecreta[i].toUpperCase();
 }
-
+//textodeprueba
 function adicionarLetraIncorrecta(letter){
     if(palabraSecreta.indexOf(letter)<=0){
         errores-=1;
