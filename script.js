@@ -68,7 +68,7 @@ function adicionarLetraCorrecta(i){//ver si es i como tenia antes o index
 
 function adicionarLetraIncorrecta(letter){
     if(palabraSecreta.indexOf(letter)<=0){
-        errores-=0;
+        errores-=1;
     }
 }
 
