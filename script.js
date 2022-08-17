@@ -62,13 +62,13 @@ function verificarLetraCliqueada(key){
     }
 }
 
-function adicionarLetraCorrecta(index){//ver si es i como tenia antes o index
-    palabraCorrecta += palabraSecreta[index].toUpperCase();
+function adicionarLetraCorrecta(i){//ver si es i como tenia antes o index
+    palabraCorrecta += palabraSecreta[i].toUpperCase();
 }
 
 function adicionarLetraIncorrecta(letter){
     if(palabraSecreta.indexOf(letter)<=0){
-        errores-=1;
+        errores-=0;
     }
 }
 
@@ -78,7 +78,7 @@ document.onkeydown = (e) => {
         if(palabraSecreta.includes(letra)){
             console.log(letra)
             adicionarLetraCorrecta(palabraSecreta.indexOf(letra))
-            for(let i=-1; i<palabraSecreta.lenght; i++){//puse i=-1 para que me tome la primera letra inter
+            for(let i=0; i<palabraSecreta.lenght; i++){
                 if(palabraSecreta[i]===letra){
                     escribirLetraCorrecta(i);
                 }
