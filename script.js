@@ -1,3 +1,7 @@
+
+const startBtn = document.getElementById('start');
+const newBtn = document.getElementById('nuevaPalabra');
+
 var palabras = ['ALURA','AHORCADO','HTML','ORACLE'];
 var tablero = document.getElementById("horca").getContext("2d");
 var letras = [];
@@ -10,8 +14,6 @@ function escojerPalabraSecreta(){
     console.log(palabra);
     return palabraSecreta;
 }
-//pruebo la funcion por consola inspeccionar
-//escojerPalabraSecreta()
 
 function dibujarLineas(){
     tablero.lineWidth = 6
@@ -29,17 +31,17 @@ function dibujarLineas(){
     tablero.closePath();
 }
 //pruebo la funcion por consola inspeccionar dibujarLineas() con parametro escojerPalabraSecreta()
-dibujarLineas(escojerPalabraSecreta());
+/*dibujarLineas(escojerPalabraSecreta());*/
 
-function escribirLetraCorrecta(index){
+function escribirLetraCorrecta(index){//NO ESCRIBE LETRA CORRECTA
     tablero.font = "bold 52px Inter"
     tablero.lineWidth = 6
     tablero.lineCap = "round"
     tablero.lineJoin = "round"
     tablero.fillStyle = "#C8AB9B"
 
-    var ancho = 600 / palabraSecreta.length;
-    tablero.fillText(palabraSecreta[index], 505+(ancho*index), 680)
+    var ancho = 600/palabraSecreta.length;
+    tablero.fillText(palabraSecreta[index], 505+(ancho*index), 620)
 }
 
 function escribirLetraIncorrecta(letra, errorsLeft){
@@ -62,7 +64,7 @@ function verificarLetraCliqueada(key){
     }
 }
 
-function adicionarLetraCorrecta(i){//ver si es i como tenia antes o index
+function adicionarLetraCorrecta(i){
     palabraCorrecta += palabraSecreta[i].toUpperCase();
 }
 //textodeprueba
@@ -73,7 +75,7 @@ function adicionarLetraIncorrecta(letter){
 }
 
 document.onkeydown = (e) => {
-    let letra = e.key.toUpperCase();
+    let letra = e.key.toUpperCase()
     if(!verificarLetraCliqueada(e.key)){
         if(palabraSecreta.includes(letra)){
             console.log(letra)
@@ -90,4 +92,21 @@ document.onkeydown = (e) => {
         }
     }
 };
+
+const monigote = ()=> {
+   // ctx.canvas.width ? 120;
+}
+
+const startGame = ()=> {
+    dibujarLineas(escojerPalabraSecreta());
+    startBtn.style.display = 'none';
+    monigote();
+};
+
+const nuevaPalabra = () => {
+    this.nuevaPalabra.push(palabras);//ver como se hace
+}
+
+startBtn.addEventListener('click',startGame);
+ 
           
