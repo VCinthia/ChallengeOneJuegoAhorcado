@@ -8,6 +8,9 @@ const canvas = document.getElementById('horca');
 
 var palabras = ['ALURA','AHORCADO','HTML','ORACLE'];
 
+var palabras = localStorage.getItem("palabras");
+palabras = JSON.parse(palabras);
+
 var tablero = document.getElementById("horca").getContext("2d");
 var letras = [];
 var palabraCorrecta = "";
@@ -121,6 +124,7 @@ function reload(){
     location.reload();
 }
 
+
 function agregarPalabra(){
     var palabraEscrita = document.getElementById('input').value;
     var nuevaPalabra = palabraEscrita.toUpperCase();
@@ -130,27 +134,29 @@ function agregarPalabra(){
     for (let i = 0; i < palabras.length; i++) {
         value += palabras[i];
     }
-    localStorage.setItem( "Palabras", JSON.stringify(palabras));
-    console.log(palabras);
+    localStorage.setItem('palabras', JSON.stringify(palabras));
+    console.log(palabras);  
+
 }
 
+/* alert("✏️ Palabra agregada!")
+        location.reload() */
 
 //////////////////////////////////////////////////////// BOTONES
 const startGame = ()=> {
     dibujarLineas(escojerPalabraSecreta());
+    //console.log(palabras);
     startBtn.style.display = 'none';
-    cancelarBtn.style.display = 'none';
-   
+    cancelarBtn.style.display = 'none';   
 };
 
-const aPalabra = () => {
-    agregarPalabra();
+const espacioPalabra = () => {    
     canvas.style.display = 'none';
     startBtn.style.display = 'none';    
     agregarBtn.style.display = 'none';
     divAgregar.style.display = 'block';
     guardarBtn.style.display = 'block';
-    cancelarBtn.style.display = 'block';       
+    cancelarBtn.style.display = 'block';   
 };
 
 const cancelar = () => {
@@ -158,7 +164,9 @@ const cancelar = () => {
 };
 
 startBtn.addEventListener('click',startGame); 
-agregarBtn.addEventListener('click',aPalabra);
-cancelarBtn.addEventListener('click',cancelar)
+cancelarBtn.addEventListener('click',cancelar);
+agregarBtn.addEventListener('click',espacioPalabra);
+guardarBtn.addEventListener('click',agregarPalabra());
+
 
 
