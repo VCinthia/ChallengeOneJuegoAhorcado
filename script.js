@@ -8,18 +8,20 @@ const divAgregar = document.getElementById('div-agregar');
 const canvas = document.getElementById('horca');
 const gatito = document.getElementById('gatito');
 
-var palabras = ['ALURA','AHORCADO','HTML','ORACLE'];
-
-var palabras = localStorage.getItem("palabras");
-palabras = JSON.parse(palabras);
-
-if(palabras ==null){palabras = palabras}
-
 var tablero = document.getElementById("horca").getContext("2d");
 var letras = [];
 var palabraCorrecta = "";
 var errores = 9;
 var aciertos = 0;
+
+
+var palabrasIniciales = ['ALURA','AHORCADO','HTML','ORACLE'];
+
+var palabras = localStorage.getItem("palabras");
+palabras = JSON.parse(palabras);
+
+
+if(palabras ==null){palabras = palabras}
 
 function escojerPalabraSecreta(){
     var palabra  = palabras[Math.floor(Math.random()*palabras.length)];
