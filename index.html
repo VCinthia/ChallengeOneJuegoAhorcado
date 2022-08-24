@@ -17,18 +17,27 @@
     <body>
         <header>
             <div>
-                <img src="./Imagenes/Logo.png" id="logo" onclick="home()">
+                <img src="./Imagenes/LogoColor.png" id="logo" onclick="home()">
             </div>
         </header>
         
         <div class="canvas"><!-- id="div-aparece-ahorcado" -->
-            <canvas id="horca" height="860px" width="1200"></canvas><!--para pantalla grande? ver en media query-->
+            <canvas id="horca" height="860px" width="1200px"></canvas><!--para pantalla grande? ver en media query-->
             <div class="subrayado">
-
-        <div>
+        </div>
+        <div class="btn-varios">
             <button id="start">Empezar</button>
-            <button id="nuevaPalabra">Cargar nueva Palabra</button>
+            <button id="agregarPalabra">Cargar nueva Palabra</button>
         </div>  
+
+        <div id="div-agregar">
+            <h1>Juego del Ahorcado</h1>            
+            <input id="input" placeholder="Ingresar nueva Palabra">
+            <div  class="btn-varios">
+                <button id="guardarPalabra">Agregar</button>
+                <button id="cancelar">Cancelar</button>
+            </div>
+        </div>
         
         
         <footer>

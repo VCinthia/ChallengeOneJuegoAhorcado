@@ -1,12 +1,18 @@
 
 const startBtn = document.getElementById('start');
-const newBtn = document.getElementById('nuevaPalabra');
+const agregarBtn = document.getElementById('agregarPalabra');
+const guardarBtn = document.getElementById('guardarPalabra');
+const cancelarBtn = document.getElementById('cancelar');
+const divAgregar = document.getElementById('div-agregar');
+const canvas = document.getElementById('horca');
 
 var palabras = ['ALURA','AHORCADO','HTML','ORACLE'];
+
 var tablero = document.getElementById("horca").getContext("2d");
 var letras = [];
 var palabraCorrecta = "";
-var errores = 6;
+var errores = 9;
+var aciertos = 0;
 
 function escojerPalabraSecreta(){
     var palabra  = palabras[Math.floor(Math.random()*palabras.length)];
@@ -31,21 +37,21 @@ function dibujarLineas(){
     tablero.closePath();
 }
 //pruebo la funcion por consola inspeccionar dibujarLineas() con parametro escojerPalabraSecreta()
-/*dibujarLineas(escojerPalabraSecreta());*/
+/* dibujarLineas(escojerPalabraSecreta()); */
 
-function escribirLetraCorrecta(index){//NO ESCRIBE LETRA CORRECTA
-    tablero.font = "bold 52px Inter"
+function escribirLetraCorrecta(index){
+    tablero.font = "bold 52px Arial"
     tablero.lineWidth = 6
     tablero.lineCap = "round"
     tablero.lineJoin = "round"
     tablero.fillStyle = "#C8AB9B"
 
     var ancho = 600/palabraSecreta.length;
-    tablero.fillText(palabraSecreta[index], 505+(ancho*index), 620)
+    tablero.fillText(palabraSecreta[index], 500+(ancho*index), 620)
 }
 
 function escribirLetraIncorrecta(letra, errorsLeft){
-    tablero.font = "bold 40px Inter"
+    tablero.font = "bold 40px Arial"
     tablero.lineWidth = 6
     tablero.lineCap = "round"
     tablero.lineJoin = "round"
@@ -66,6 +72,7 @@ function verificarLetraCliqueada(key){
 
 function adicionarLetraCorrecta(i){
     palabraCorrecta += palabraSecreta[i].toUpperCase();
+    //console.log(palabraCorrecta);
 }
 //textodeprueba
 function adicionarLetraIncorrecta(letter){
@@ -78,35 +85,198 @@ document.onkeydown = (e) => {
     let letra = e.key.toUpperCase()
     if(!verificarLetraCliqueada(e.key)){
         if(palabraSecreta.includes(letra)){
-            console.log(letra)
+            //console.log(letra)
             adicionarLetraCorrecta(palabraSecreta.indexOf(letra))
-            for(let i=0; i<palabraSecreta.lenght; i++){
+            for(let i=0; i<palabraSecreta.length; i++){
                 if(palabraSecreta[i]===letra){
+                    aciertos++
                     escribirLetraCorrecta(i);
-                }
+                    victoria(aciertos);                }
             }
         } else {
             if(!verificarLetraCliqueada(e.key)) return 
             adicionarLetraIncorrecta(letra)
+            dibujarCanvas(errores)
             escribirLetraIncorrecta(letra, errores);
+            derrota(errores)
         }
     }
 };
 
-const monigote = ()=> {
-   // ctx.canvas.width ? 120;
+function derrota(errores){
+    if (errores == 1) {
+        alert("😰 Juego perdido")
+        location.reload()
+    }
 }
 
+function victoria(aciertos){
+    if(aciertos == palabraSecreta.length){
+        alert("👾 Juego ganado!")
+        location.reload()
+    }
+}
+
+function agregarPalabra(){
+    var palabraEscrita = document.getElementById('input').value;
+    var nuevaPalabra = palabraEscrita.toUpperCase();
+    palabras.push(nuevaPalabra);
+
+    var value = '';
+    for (let i = 0; i < palabras.length; i++) {
+        value += palabras[i];
+    }
+    localStorage.setItem( "Palabras", JSON.stringify(palabras));
+    console.log(palabras);
+}
+
+//////////////////////////////////////////////////////// BOTONES
 const startGame = ()=> {
     dibujarLineas(escojerPalabraSecreta());
     startBtn.style.display = 'none';
-    monigote();
+    cancelarBtn.style.display = 'none';
+   
 };
 
-const nuevaPalabra = () => {
-    this.nuevaPalabra.push(palabras);//ver como se hace
+
+const aPalabra = () => {
+    agregarPalabra();
+    canvas.style.display = 'none';
+    startBtn.style.display = 'none';    
+    agregarBtn.style.display = 'none';
+    divAgregar.style.display = 'block';
+    guardarBtn.style.display = 'block';
+    cancelarBtn.style.display = 'block';       
 }
 
-startBtn.addEventListener('click',startGame);
- 
-          
+const cancelar = () => {
+    canvas.style.display = 'block';
+    startBtn.style.display = 'block';    
+    agregarBtn.style.display = 'block';
+    divAgregar.style.display = 'none';
+    guardarBtn.style.display = 'none';
+    cancelarBtn.style.display = 'none';
+}
+
+startBtn.addEventListener('click',startGame); 
+agregarBtn.addEventListener('click',aPalabra);
+cancelarBtn.addEventListener('click',cancelar)
+
+//CANVA
+
+function dibujarHorca(){
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "gray";
+    pincel.fillRect(390,50,15,280);
+    pincel.fillRect(330,330,150,15);
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillRect(390,50,250,15);
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillRect(640,50,15,50);
+}
+
+function dibujarCabeza(){
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "gray";
+    pincel.beginPath();
+    pincel.arc(645, 125, 40, 0, 2 * 3.14);
+    pincel.fill();
+}
+
+function dibujarTorso(){
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "gray";
+    pincel.fillRect(640,150,15,100);
+}
+
+function dibujarIzq(){
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "gray";
+    pincel.fillRect(640,180,60,15);
+}
+
+function dibujarDer(){
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "gray";
+    pincel.fillRect(585,180,60,15);
+}
+
+function dibujarPiernaIzq(){
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "gray";
+    pincel.fillRect(655, 240, 15, 60)
+}
+
+function dibujarFinal(){
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "gray";
+    pincel.fillRect(625, 240, 15, 60);
+    pincel.fillStyle = "black";
+    pincel.fillRect(615, 110, 20, 5);
+    pincel.fillStyle = "black";
+    pincel.fillRect(655, 110, 20, 5);
+    pincel.fillStyle = "black";
+    pincel.fillRect(622, 104, 5, 20);
+    pincel.fillStyle = "black";
+    pincel.fillRect(662, 104, 5, 20);
+}
+
+function dibujarCanvas(){
+    switch (errores) {
+        case 1:
+            dibujarFinal()
+            break;
+        case 2:
+            dibujarPiernaIzq()
+            break;
+        case 3:
+            dibujarDer()
+            break;
+        case 4:
+            dibujarIzq()
+            break;
+        case 5:
+            dibujarTorso()
+            break;
+        case 6:
+            dibujarCabeza()
+            break;
+        case 7:
+            dibujarHorca()
+            break;
+    }
+}
+
+function dibujarCanvasTotal(){
+    dibujarPiernaIzq();
+    dibujarDer();
+    dibujarIzq();
+    dibujarTorso();
+    dibujarCabeza();
+    dibujarHorca();
+    dibujarFinal();
+}
+
+function reload(){
+    location.reload();
+}
+
+const btn = document.getElementById("nuevoJuego");
+btn.addEventListener("click", (event)=>{
+    location.reload();
+});
+
+var butn = document.getElementById("rendirse");
+butn.addEventListener("click", (event) =>{
+    dibujarCanvasTotal()
+    alerta()
+})
