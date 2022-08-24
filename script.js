@@ -21,7 +21,7 @@ var palabras = localStorage.getItem("palabras");
 palabras = JSON.parse(palabras);
 
 
-if(palabras ==null){palabras = palabras}
+if(palabras ==null){palabras = palabrasIniciales}
 
 function escojerPalabraSecreta(){
     var palabra  = palabras[Math.floor(Math.random()*palabras.length)];
