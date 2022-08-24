@@ -90,6 +90,17 @@ function adicionarLetraIncorrecta(letter){
     }
 }
 
+function agregarLetraCorrecta(i){
+    palabraCorrecta += palabraSecreta[i].toUpperCase()
+    console.log(aciertos)
+}
+
+function agregarLetraIncorrecta(letter){
+    if(palabraSecreta.indexOf(letter)<=0){
+        errores -= 1
+    }
+}
+
 document.onkeydown = (e) => {
     let letra = e.key.toUpperCase()
     if(!verificarLetraCliqueada(e.key)){
