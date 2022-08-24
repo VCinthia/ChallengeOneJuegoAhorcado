@@ -5,25 +5,34 @@ body{
 #logo{
     padding: 20px;
     opacity: 80%;
-    ;
+    
 }
 
+#gatito{
+    margin: auto;
+    background-color:azure;
+    margin-bottom: 40px;
+    border-radius: 30px;   
+    
+    display: flex;
+    height: 400px;
+    
+}
 footer{
     text-align: center;
-    font-size: 15px;
+    font-size: 20px;
     margin: 40px;
     color: azure;
 }
 
 #canva {
     font-family: "Courier New", monospace;
-    align-items: center;
-    
+    align-items: center;   
     
 }
 
 #horca{
-    display: block;   
+    display: none;   
     margin: auto;
     background-color:azure;
     margin-bottom: 40px;
@@ -71,4 +80,8 @@ button{
     padding-inline: 30px;
     border-radius: 30px;
     background-color: #ebd7ce;
+}
+
+#desistir{
+    display: none;
 }

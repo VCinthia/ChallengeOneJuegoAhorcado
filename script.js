@@ -1,10 +1,12 @@
 
 const startBtn = document.getElementById('start');
+const desistirBtn = document.getElementById('desistir')
 const agregarBtn = document.getElementById('agregarPalabra');
 const guardarBtn = document.getElementById('guardarPalabra');
 const cancelarBtn = document.getElementById('cancelar');
 const divAgregar = document.getElementById('div-agregar');
 const canvas = document.getElementById('horca');
+const gatito = document.getElementById('gatito');
 
 var palabras = ['ALURA','AHORCADO','HTML','ORACLE'];
 
@@ -146,11 +148,14 @@ function agregarPalabra(){
 const startGame = ()=> {
     dibujarLineas(escojerPalabraSecreta());
     //console.log(palabras);
-    startBtn.style.display = 'none';
-    cancelarBtn.style.display = 'none';   
+    gatito.style.display = 'none';
+    canvas.style.display = 'block';
+    startBtn.style.display = 'none';  
+    desistirBtn.style.display = 'block';
 };
 
-const espacioPalabra = () => {    
+const espacioPalabra = () => {   
+    gatito.style.display = 'none'; 
     canvas.style.display = 'none';
     startBtn.style.display = 'none';    
     agregarBtn.style.display = 'none';
@@ -160,6 +165,9 @@ const espacioPalabra = () => {
 };
 
 const cancelar = () => {
+    location.reload()
+};
+const desistir = () => {
     location.reload()
 };
 
@@ -173,6 +181,7 @@ startBtn.addEventListener('click',startGame);
 cancelarBtn.addEventListener('click',cancelar);
 agregarBtn.addEventListener('click',espacioPalabra);
 guardarBtn.addEventListener('click',guardar);
+desistirBtn.addEventListener('click', desistir)
 
 
 
