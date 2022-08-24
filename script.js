@@ -1,8 +1,23 @@
+
+const startBtn = document.getElementById('start');
+const desistirBtn = document.getElementById('desistir')
+const agregarBtn = document.getElementById('agregarPalabra');
+const guardarBtn = document.getElementById('guardarPalabra');
+const cancelarBtn = document.getElementById('cancelar');
+const divAgregar = document.getElementById('div-agregar');
+const canvas = document.getElementById('horca');
+const gatito = document.getElementById('gatito');
+
 var palabras = ['ALURA','AHORCADO','HTML','ORACLE'];
+
+var palabras = localStorage.getItem("palabras");
+palabras = JSON.parse(palabras);
+
 var tablero = document.getElementById("horca").getContext("2d");
 var letras = [];
 var palabraCorrecta = "";
-var errores = 6;
+var errores = 9;
+var aciertos = 0;
 
 function escojerPalabraSecreta(){
     var palabra  = palabras[Math.floor(Math.random()*palabras.length)];
@@ -10,8 +25,6 @@ function escojerPalabraSecreta(){
     console.log(palabra);
     return palabraSecreta;
 }
-//pruebo la funcion por consola inspeccionar
-//escojerPalabraSecreta()
 
 function dibujarLineas(){
     tablero.lineWidth = 6
@@ -29,21 +42,21 @@ function dibujarLineas(){
     tablero.closePath();
 }
 //pruebo la funcion por consola inspeccionar dibujarLineas() con parametro escojerPalabraSecreta()
-dibujarLineas(escojerPalabraSecreta());
+/* dibujarLineas(escojerPalabraSecreta()); */
 
 function escribirLetraCorrecta(index){
-    tablero.font = "bold 52px Inter"
+    tablero.font = "bold 52px Arial"
     tablero.lineWidth = 6
     tablero.lineCap = "round"
     tablero.lineJoin = "round"
     tablero.fillStyle = "#C8AB9B"
 
-    var ancho = 600 / palabraSecreta.length;
-    tablero.fillText(palabraSecreta[index], 505+(ancho*index), 680)
+    var ancho = 600/palabraSecreta.length;
+    tablero.fillText(palabraSecreta[index], 500+(ancho*index), 620)
 }
 
 function escribirLetraIncorrecta(letra, errorsLeft){
-    tablero.font = "bold 40px Inter"
+    tablero.font = "bold 40px Arial"
     tablero.lineWidth = 6
     tablero.lineCap = "round"
     tablero.lineJoin = "round"
@@ -62,10 +75,11 @@ function verificarLetraCliqueada(key){
     }
 }
 
-function adicionarLetraCorrecta(index){//ver si es i como tenia antes o index
-    palabraCorrecta += palabraSecreta[index].toUpperCase();
+function adicionarLetraCorrecta(i){
+    palabraCorrecta += palabraSecreta[i].toUpperCase();
+    //console.log(palabraCorrecta);
 }
-
+//textodeprueba
 function adicionarLetraIncorrecta(letter){
     if(palabraSecreta.indexOf(letter)<=0){
         errores-=1;
@@ -73,21 +87,101 @@ function adicionarLetraIncorrecta(letter){
 }
 
 document.onkeydown = (e) => {
-    let letra = e.key.toUpperCase();
+    let letra = e.key.toUpperCase()
     if(!verificarLetraCliqueada(e.key)){
         if(palabraSecreta.includes(letra)){
-            console.log(letra)
+            //console.log(letra)
             adicionarLetraCorrecta(palabraSecreta.indexOf(letra))
-            for(let i=-1; i<palabraSecreta.lenght; i++){//puse i=-1 para que me tome la primera letra inter
+            for(let i=0; i<palabraSecreta.length; i++){
                 if(palabraSecreta[i]===letra){
+                    aciertos++
                     escribirLetraCorrecta(i);
-                }
+                    victoria(aciertos);                }
             }
         } else {
             if(!verificarLetraCliqueada(e.key)) return 
             adicionarLetraIncorrecta(letra)
+            dibujarCanvas(errores)
             escribirLetraIncorrecta(letra, errores);
+            derrota(errores)
         }
     }
 };
-          
+
+function derrota(errores){
+    if (errores == 1) {
+        alert("😰 Juego perdido")
+        location.reload()
+    }
+}
+
+function victoria(aciertos){
+    if(aciertos == palabraSecreta.length){
+        alert("👾 Juego ganado!")
+        location.reload()
+    }
+}
+
+function reload(){
+    location.reload();
+}
+
+
+function agregarPalabra(){
+    var palabraEscrita = document.getElementById('input').value;
+    var nuevaPalabra = palabraEscrita.toUpperCase();
+    palabras.push(nuevaPalabra);
+
+    let value = "";
+    for (let i = 1; i < palabras.length; i++) {
+        value += palabras[i];
+    }
+    localStorage.setItem('palabras', JSON.stringify(palabras));
+    console.log(palabras);  
+
+}
+
+/* alert("✏️ Palabra agregada!")
+        location.reload() */
+
+//////////////////////////////////////////////////////// BOTONES
+const startGame = ()=> {
+    dibujarLineas(escojerPalabraSecreta());
+    //console.log(palabras);
+    gatito.style.display = 'none';
+    canvas.style.display = 'block';
+    startBtn.style.display = 'none';  
+    desistirBtn.style.display = 'block';
+};
+
+const espacioPalabra = () => {   
+    gatito.style.display = 'none'; 
+    canvas.style.display = 'none';
+    startBtn.style.display = 'none';    
+    agregarBtn.style.display = 'none';
+    divAgregar.style.display = 'block';
+    guardarBtn.style.display = 'block';
+    cancelarBtn.style.display = 'block';   
+};
+
+const cancelar = () => {
+    location.reload()
+};
+const desistir = () => {
+    location.reload()
+};
+
+const guardar = () => {
+    //agregarPalabra();
+    alert("✏️ Palabra agregada!")
+    location.reload()
+}
+
+startBtn.addEventListener('click',startGame); 
+cancelarBtn.addEventListener('click',cancelar);
+agregarBtn.addEventListener('click',espacioPalabra);
+guardarBtn.addEventListener('click',guardar);
+desistirBtn.addEventListener('click', desistir)
+
+
+

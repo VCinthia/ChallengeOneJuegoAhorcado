@@ -6,32 +6,48 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <title>✏️ Juego del Ahorcado</title>   
-        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'> 
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&display=swap" rel="stylesheet"> 
         <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->  
             
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-        <link rel="stylesheet" href="style.css">
-        <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&display=swap" rel="stylesheet"> -->
-        
+        <link rel="stylesheet" href="style.css">       
     </head>
 
     <body>
         <header>
             <div>
-                <img src="./Imagenes/Logo.png" id="logo">
+                <img src="./Imagenes/LogoColor.png" id="logo" >
             </div>
         </header>
-        
+
         <div>
-            <canvas id="horca" height="1200px" width="1900px"></canvas><!--para pantalla grande? ver en media query-->
-        <div class="subrayado"></div>
-        </div>        
+            <img src="./Imagenes/gatito.jpg" id="gatito" onclick="home()">
+        </div>
+        
+        <div class="canvas"><!-- id="div-aparece-ahorcado" -->
+            <canvas id="horca" height="860px" width="1200px"></canvas><!--para pantalla grande? ver en media query-->
+            <div class="subrayado">
+        </div>
+        <div class="btn-varios">
+            <button id="start">Empezar</button>
+            <button id="agregarPalabra">Cargar nueva Palabra</button>
+            <button id="desistir">Desistir</button>
+        </div>  
+
+        <div id="div-agregar">
+            <h1>Juego del Ahorcado</h1>            
+            <input id="input" placeholder="Ingresar nueva Palabra">
+            <div  class="btn-varios">
+                <button onclick="agregarPalabra()" id="guardarPalabra">Agregar</button>
+                <button id="cancelar">Cancelar</button>
+            </div>
+        </div>
         
         
         <footer>
             <div>
-                <h6>Cinthia Vota - 2022 ©</h6>
+                <p>Cinthia Vota - 2022 ©</p>
                 <p>Mar del Plata , Buenos Aires , Argentina. </p>
             </div>
         </footer>
