@@ -130,8 +130,8 @@ function agregarPalabra(){
     var nuevaPalabra = palabraEscrita.toUpperCase();
     palabras.push(nuevaPalabra);
 
-    var value = '';
-    for (let i = 0; i < palabras.length; i++) {
+    let value = "";
+    for (let i = 1; i < palabras.length; i++) {
         value += palabras[i];
     }
     localStorage.setItem('palabras', JSON.stringify(palabras));
@@ -163,10 +163,16 @@ const cancelar = () => {
     location.reload()
 };
 
+const guardar = () => {
+    //agregarPalabra();
+    alert("✏️ Palabra agregada!")
+    location.reload()
+}
+
 startBtn.addEventListener('click',startGame); 
 cancelarBtn.addEventListener('click',cancelar);
 agregarBtn.addEventListener('click',espacioPalabra);
-guardarBtn.addEventListener('click',agregarPalabra());
+guardarBtn.addEventListener('click',guardar);
 
 
 
